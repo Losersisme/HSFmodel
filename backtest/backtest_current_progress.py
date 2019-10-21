@@ -1,5 +1,4 @@
 #Import Libraries:
-#done
 from pandas import *
 import pandas as pd
 from datetime import *
@@ -8,25 +7,17 @@ import numpy as np
 from itertools import product
 
 #Define risk-free rates
-#done
 TBill3Mth = (0.29/100)
 Libor3Mth = (0.91/100)
 
-#done
 pd.options.mode.chained_assignment = None #allow chained assignment
 
 #Import main data into spyx DF
-#done
 spyx = read_csv("Backtest VALUES.csv",index_col='DATE',parse_dates=True)
 
 #Fix FCF to be P/FCF and Adjust Beta
-#not necessary to include this code; our data now includes these values adjusted already
 spyx['PRICE_TO_FCF']=spyx['CUR_MKT_CAP']/spyx['CF_FREE_CASH_FLOW']
 spyx['ADJUSTED_BETA']=((0.67)*spyx['BETA_RAW_OVERRIDABLE']+(0.33)*1.0)
-
-#End Part 1
-#********************************************************************************************************************
-#Start Part 2
 
 #Choose sector
 sector = 'Energy'
@@ -35,22 +26,18 @@ sector = 'Energy'
 spyx_Sector = spyx.loc[spyx['GICS_SECTOR_NAME']==sector]
 
 #drop rows without a date
-#done
 spyx_Sector.dropna(axis='index',how='any',inplace=True)
 
 #Define starting date to begin df with
-#done
 startDate = to_datetime('2013-03-28')
 startDate=startDate.toordinal()
 
 #Cut spyx_Sector based on DateTime range
-#done
 spyx_Sector['ordinalTime']=spyx_Sector.index
 spyx_Sector['ordinalTime'] = spyx_Sector['ordinalTime'].apply(date.toordinal)
 spyx_Sector = spyx_Sector.loc[spyx_Sector['ordinalTime']>=startDate]
 
 #define ranges for cartesian product
-#done
 peRange = range(13,21,2)
 pbRange = range(1,5)
 epsRange = range(2,12,2)
@@ -59,13 +46,10 @@ fcfRange = range(5,20,5)
 roeRange = range(12,20,2)
 roaRange = range(5,11,2)
 
-
 #Create set of dates
-#done
 datesList = sorted(set(spyx_Sector.index))
 
 #Create new Output DF for portfolios for dates
-#done
 dfPort = pd.DataFrame([],index=datesList)
 dfPort['return']=None
 dfPort['beta']=None
