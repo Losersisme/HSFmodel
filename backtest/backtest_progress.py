@@ -81,10 +81,12 @@ dfPort['roaTest']=None
 dfPort['maxHSFScore']=None
 
 #Function to output every indivdual portfolio inside each period
+#done
 def outputIndPeriod(df, date):
         df.to_csv(sector+"IndPortPeriod"+time.strftime("d%dm%my%Y")+".csv", mode='a')
 
 #Function to loop through every date and output an individual portfolio
+#done
 def calulatePortLoop(dateList, params):
     for date in datesList:
         df = spyx_Sector.loc[spyx_Sector.index==date]
@@ -127,6 +129,7 @@ def calulatePortLoop(dateList, params):
     return dfPort
 
 #Create new Output DF for total portfolios
+#done
 dfTotalPort = pd.DataFrame([])
 dfTotalPort['ind']=list(product(peRange,pbRange,epsRange,deRange,fcfRange,roeRange,roaRange))
 dfTotalPort['meanReturn']=None
@@ -142,12 +145,14 @@ dfTotalPort['roeTest']=None
 dfTotalPort['roaTest']=None
 
 #output each portfolio with dates
+#done
 def outputIndPort(dfPort,params):
     dfPort.to_csv(sector+"IndividualPortfolios"+time.strftime("d%dm%my%Yh")+".csv", \
                   mode='a',index_label=("T"+str(params[0])+str(params[1])+str(params[2])+str(params[3])\
                         +str(params[4])+str(params[5])+str(params[6])))
 
 #Output total portfolio with parameters
+#done
 def outputTotalPort(dfTotalPort,params):
     dfTotalPort.to_csv(sector+"TotalPortfolio"+time.strftime("d%dm%my%Yh")+".csv", mode='w',index_label=("T"+"Portfolio"))
 
