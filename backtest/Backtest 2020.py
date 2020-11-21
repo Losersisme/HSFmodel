@@ -21,7 +21,6 @@ totalDF = read_csv("Backtest VALUES 2020.csv",index_col='DATE',parse_dates=True)
 totalDF = totalDF.sort_index()
 
 totalDF.dropna(axis='index',how='any',inplace=True)
-display(totalDF)
 
 startDate = to_datetime('2015-09-01')
 startDate=startDate.toordinal()
@@ -31,9 +30,7 @@ totalDF['ordinalTime'] = totalDF['ordinalTime'].apply(date.toordinal)
 totalDF = totalDF.loc[totalDF['ordinalTime']>=startDate]
 
 datesList = sorted(set(totalDF.index))
-print(datesList)
 sectors = totalDF.GICS_SECTOR_NAME.unique()
-print(sectors)
 
 totalDF_ranges = pd.read_excel("Backtest VALUES 2020.xlsx", index_col=[0,1])
 totalDF_ranges = totalDF_ranges.sort_index()
