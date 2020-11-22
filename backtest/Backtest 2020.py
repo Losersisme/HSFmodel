@@ -169,7 +169,6 @@ def runSingleSector(sectorChosen, tbill, libor, IndPortfolios, IndPeriods):
 
 start = time.time()
 
-The two lines below would allow us to run all sectors at once
 for s in sectors:
     runSingleSector(s, 0.09, 0.23, False, False)
 
